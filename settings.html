@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Settings</title>
+  <script>
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+      window.location.href = "login.html";
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background-color: #f0f2f5; font-family: Arial, sans-serif; }
+    .wallet-container { max-width: 400px; margin: 0 auto; background: white; height: 100vh; display: flex; flex-direction: column; }
+    .wallet-header { background: #2979ff; color: white; padding: 20px; text-align: center; font-size: 22px; font-weight: bold; }
+    .settings-section { padding: 20px; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .logout-button { padding: 12px 25px; background-color: #e53935; color: white; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; }
+    .logout-button:hover { background-color: #c62828; }
+    .nav { display: flex; justify-content: space-around; background: #fafafa; padding: 10px 0; border-top: 1px solid #ddd; }
+    .nav-item { font-size: 13px; color: #777; cursor: pointer; text-decoration: none; }
+    .nav-item.active { color: #2979ff; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="wallet-container">
+    <div class="wallet-header">Settings</div>
+    <div class="settings-section">
+      <button class="logout-button" onclick="logout()">Logout</button>
+    </div>
+    <div class="nav">
+      <a class="nav-item" href="wallet.html">Wallet</a>
+      <a class="nav-item" href="transaction.html">Transactions</a>
+      <a class="nav-item active" href="settings.html">Settings</a>
+    </div>
+  </div>
+
+  <script>
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      alert("You have been logged out.");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

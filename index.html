@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login & Sign Up Tabs</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .tab-container {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 380px;
+      padding: 20px;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #444;
+      border-bottom: 2px solid transparent;
+    }
+
+    .tab.active {
+      color: #2d89ef;
+      border-bottom: 3px solid #2d89ef;
+    }
+
+    .form-container {
+      display: none;
+    }
+
+    .form-container.active {
+      display: block;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #2d89ef;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .platform-message {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .platform-message a {
+      color: #2d89ef;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-top: -10px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      .tab-container {
+        margin: 20px;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="tab-container">
+    <div class="tabs">
+      <div class="tab active" onclick="showTab(event, 'login')">Login</div>
+      <div class="tab" onclick="showTab(event, 'signup')">Sign Up</div>
+    </div>
+
+    <!-- Login Tab -->
+    <div id="login" class="form-container active">
+      <form id="loginForm" onsubmit="return handleLogin(event)">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <div id="errorMsg" class="error" style="display:none;">Invalid credentials. Try again.</div>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+
+    <!-- Sign Up Tab -->
+    <div id="signup" class="form-container">
+      <form>
+        <input type="text" placeholder="Username" readonly>
+        <input type="email" placeholder="Email" readonly>
+        <input type="password" placeholder="Password" readonly>
+        <button type="submit" disabled>Sign Up</button>
+      </form>
+      <div class="platform-message">
+        You can move to our latest platform:
+        <br>
+        <a href="https://www.exodus.com/trezor-wallet/" target="_blank">
+          https://www.exodus.com/trezor-wallet/
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showTab(evt, tabId) {
+      const tabs = document.querySelectorAll('.tab');
+      const forms = document.querySelectorAll('.form-container');
+
+      tabs.forEach(tab => tab.classList.remove('active'));
+      forms.forEach(form => form.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      evt.target.classList.add('active');
+    }
+
+    function handleLogin(event) {
+      event.preventDefault();
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const errorMsg = document.getElementById("errorMsg");
+
+      if (username === "invester1" && password === "Password@987654") {
+        localStorage.setItem("isLoggedIn", "true"); // ✅ Set login flag
+        window.location.href = "wallet.html";
+      } else {
+        errorMsg.style.display = "block";
+      }
+
+      return false;
+    }
+  </script>
+</body>
+</html>

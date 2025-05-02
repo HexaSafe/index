@@ -1,0 +1,4 @@
+if (username === "invester1" && password === "Password@987654") {
+  localStorage.setItem("isLoggedIn", "true"); // ✅ Set flag
+  window.location.href = "wallet.html";
+}
